@@ -1,0 +1,3 @@
+exec /usr/bin
+include /usr/include/pwdb
+lib /usr/lib/pwdb

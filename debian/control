@@ -9,4 +9,5 @@ Homepage: https://github.com/leo5123/pwdb-sqlite.git
 Package: pwdb
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Protected local database that facilitates copying. 
+Description: File helper.
+  Protected local database that facilitates copying.

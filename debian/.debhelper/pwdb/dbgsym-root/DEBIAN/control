@@ -1,0 +1,13 @@
+Package: pwdb-dbgsym
+Package-Type: ddeb
+Source: pwdb
+Version: 1.0-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: leo5123 <leoo.caldas@hotmail.com>
+Installed-Size: 16
+Depends: pwdb (= 1.0-1)
+Section: debug
+Priority: optional
+Description: debug symbols for pwdb
+Build-Ids: c8d5691ae5f4da2f4954384efd5010eb6edadf15

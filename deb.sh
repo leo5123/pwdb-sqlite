@@ -1,0 +1,2 @@
+debclean
+debuild -us -uc
