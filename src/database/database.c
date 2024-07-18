@@ -2,8 +2,6 @@
 #include <sqlite3.h>
 #include <stdio.h>
 
-
-
 int openDB(sqlite3 *db) {
     int rc = sqlite3_open("pwdatabase.db", &db);
     if (rc != SQLITE_OK) {
@@ -18,7 +16,7 @@ int closeDB(sqlite3 *db) {
     sqlite3_close(db);
     printf("SQLite database closed\n");
     return 0;
-} 
+}
 
 int tableExists(sqlite3 *db, const char *table) {
     const char *sql = "SELECT name FROM sqlite_master WHERE type='table' AND name=?;";
@@ -47,14 +45,19 @@ int tableExists(sqlite3 *db, const char *table) {
     return 0;
 }
 
-int createTable(sqlite3 *db, const char* table) {
+int createTable(sqlite3 *db, const char *table) {
     int rc;
     char *err_msg = 0;
     char sql[100];
+
+    if (tableExists(db, table) == 1) {
+        fprintf(stderr, "Table already exists.\n");
+        return 1;
+    }
+
     snprintf(sql, sizeof(sql), "CREATE TABLE %s (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Password TEXT);", table);
 
     rc = sqlite3_exec(db, sql, 0, 0, &err_msg);
-
 
     if (rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", err_msg);

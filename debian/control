@@ -1,0 +1,12 @@
+Source: pwdb
+Section: utils
+Priority: optional
+Maintainer: leo5123 <leoo.caldas@hotmail.com>
+Build-Depends: debhelper (>= 9), gcc
+Standards-Version: 3.9.6
+Homepage: https://github.com/leo5123/pwdb-sqlite.git
+
+Package: pwdb
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Protected local database that facilitates copying. 
