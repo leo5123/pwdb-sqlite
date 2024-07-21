@@ -3,6 +3,7 @@
         "stdio.h": "c",
         "database.h": "c",
         "sqlite3.h": "c",
-        "menu.h": "c"
+        "menu.h": "c",
+        "string.h": "c"
     }
 }

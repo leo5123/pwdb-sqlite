@@ -10,4 +10,4 @@ Depends: pwdb (= 1.0-1)
 Section: debug
 Priority: optional
 Description: debug symbols for pwdb
-Build-Ids: c8d5691ae5f4da2f4954384efd5010eb6edadf15
+Build-Ids: c89bd30afa3ba2bde9a4ccbe6070204d8154ab99

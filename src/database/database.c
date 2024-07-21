@@ -9,12 +9,10 @@ int openDB(sqlite3 *db) {
         sqlite3_close(db);
         return 1;
     }
-    printf("SQLite database opened successfully\n");
 }
 
 int closeDB(sqlite3 *db) {
     sqlite3_close(db);
-    printf("SQLite database closed\n");
     return 0;
 }
 

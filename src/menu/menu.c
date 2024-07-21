@@ -4,32 +4,95 @@
 #include <stdio.h>
 #include <string.h>
 
-char createStorage[10] = "1";
+typedef struct {
+    const char** arg;
+    int argc;
+    void (*func)(sqlite3* db, int argc, char** argv);
+} CommandMap;
 
-int initializeMenu(sqlite3* db) {
-    int rc;
+const char* createErrorCMD[] = {"create"};
+const char* createHelpCMD[] = {"create", "--help"};
 
-    printf("+-------------------------------+\n");
-    printf("|              Menu             |\n");
-    printf("+-------------------------------+\n");
-    printf("|  [1] Create password group    |\n");
-    printf("+-------------------------------+\n");
-    printf("|  [2] Delete password group    |\n");
-    printf("+-------------------------------+\n");
+CommandMap commandMap[] = {
+    {createErrorCMD, 1, createError},
+    {createHelpCMD, 2, createHelp},
+    {NULL, 0, NULL}  // Sentinel value
+};
 
-    char choice[10];
+void helpCommand() {
+    printf("Usage:  pwdb [OPTIONS] COMMAND [ARG...]\n");
+    printf("\n");
+    printf("Easy way for you to manage your passwords\n");
+    printf("\n");
+    printf("Common Commands: \n");
+    printf("create       Insert information into the database\n");
+    printf("delete       Remove information into the database\n");
+    printf("\n");
+    printf("Global Options:     \n");
+    printf("-g, --group         Storage space\n");
+    printf("-p, --password      Single line storage space\n");
 
-    printf("Select a number: ");
-    scanf("%49s", choice);
-
-    if (strcmp(choice, "1") == 0) {
-        createGroup(db);
-    }
-
-    return 0;
+    printf("\n");
 }
 
-int createGroup(sqlite3* db) {
+void processComands(sqlite3* db, int argc, char** argv) {
+    int exitFlag = 0;
+
+    argc = argc - 1;
+
+    while (0 < 1) {
+        for (int j = 0; commandMap[j].arg != NULL && !exitFlag; ++j) {
+            int argsLen = commandMap[j].argc;
+            int found = 0;
+            int i = 1;
+            for (int l = 0; l < argsLen; ++l) {
+                if (argsLen != argc) {
+                    break;
+                }
+                if (strcmp(argv[i], commandMap[j].arg[l]) == 0) {
+                    found++;
+                    i++;
+                    if (found == argc) {
+                        commandMap[j].func(db, argc, argv);
+                        exitFlag = 1;
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        if (!exitFlag) {
+            helpCommand();
+        }
+        break;
+    }
+}
+
+void createError() {
+    printf("\"pwdb create\" requires at least 1 argument and 1 option. \n");
+    printf("See \"pwdb create --help\".\n");
+    printf("\n");
+    printf("Usage:  pwdb create [OPTION] [ARG...]\n");
+    printf("\n");
+    printf("Create a group in the database allowing you to insert data in them.\n");
+}
+
+void createHelp() {
+    printf("\n");
+    printf("Usage:  pwdb create [OPTION] [ARG...]\n");
+    printf("\n");
+    printf("Options:\n");
+    printf("-g, --group    Create a group\n");
+    printf("-p, --password    Insert a password into a group\n");
+    printf("\n");
+    printf("Example use:\n");
+    printf("pwdb create -p <group-name> <password>\n");
+    printf("pwdb create -g <group-name>\n");
+    printf("\n");
+}
+
+void createGroup(sqlite3* db) {
     char groupName[50];
     int res;
 
@@ -37,10 +100,8 @@ int createGroup(sqlite3* db) {
     scanf("%49s", groupName);
 
     res = createTable(db, "bob");
-
-    return 0;
 }
 
-int deleteGroup(sqlite3* db) {
-    return 0;
+void deleteGroup(sqlite3* db) {
+    printf("delete ");
 }

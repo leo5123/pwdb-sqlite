@@ -12,7 +12,7 @@ OBJ_DIR = obj
 SRC_FILES = $(SRC_DIR)/init/main.c $(DATABASE_DIR)/database.c $(MENU_DIR)/menu.c
 
 # Define the output executable
-OUTPUT = exec
+OUTPUT = pwdb
 
 # Define the libraries to link against
 LIBS = -lsqlite3
