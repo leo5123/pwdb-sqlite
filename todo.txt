@@ -1,3 +1,4 @@
 filter in list of all files
 list of all pws
 clip pw in one line
+error with one arg right others wrong

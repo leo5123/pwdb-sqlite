@@ -1,21 +1,51 @@
 
-#include "../include/database.h"
-#include "../include/menu.h"
+#include "../../include/commands.h"
+#include "../../include/handler.h"
+#include "../../include/messages.h"
+#include "../../include/database.h"
 #include <sqlite3.h>
 #include <stdio.h>
 #include <string.h>
 
+const char* createErrorCMD[] = {"create"};
+const char* createHelpCMD[] = {"create", "--help"};
+const char* createGroupShortCMD[] = {"create", "-g"};
+const char* createGroupCMD[] = {"create", "--group"};
+
+// const char* listGroupCMD[] = {"ls", "-g"};
+const char* insertErrorCMD[] = {"insert"};
+const char* insertHelpCMD[] = {"insert", "--help"};
+const char* insertIntoGroupShortCMD[] = {"insert", "-p"};
+const char* insertIntoGroupCMD[] = {"insert", "--password"};
+
+const char* listErrorCMD[] = {"ls"};
+const char* listHelpCMD[] = {"ls", "--help"};
+const char* listGroupCMD[] = {"ls", "--group"};
+const char* listGroupShortCMD[] = {"ls", "-g"};
+
+Command commands[] = {
+    {createErrorCMD, 1, createError},
+    {createHelpCMD, 2, createHelp},
+    {createGroupShortCMD, 2, createGroup},
+    {createGroupCMD, 2, createGroup},
+
+    {insertErrorCMD, 1, insertError},
+    {insertHelpCMD, 2, insertHelp},
+    {insertIntoGroupShortCMD, 2, insertIntoGroup},
+    {insertIntoGroupCMD, 2, insertIntoGroup},
+
+    {listErrorCMD, 1, listError},
+    {listHelpCMD, 2, listHelp},
+    {listGroupCMD, 2, listGroup},
+    {listGroupShortCMD, 2, listGroup},
+
+    {NULL, 0, NULL}  // Sentinel value
+};
+
 int main(int argc, char** argv) {
     sqlite3* db;
-    openDB(db);
-
-    if (argc == 1) {
-        helpCommand(db);
-    }
-    if (argc > 1) {
-        processComands(db, argc, argv);
-    }
-
+    db = openDB(db);
+    processComands(db, argc, argv, commands);
     closeDB(db);
     return 0;
 }

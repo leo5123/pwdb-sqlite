@@ -4,9 +4,11 @@
 #include <sqlite3.h>
 #include <stdio.h>
 
-int createTable(sqlite3 *, const char *table);
-int tableExists(sqlite3 *db, const char *table);
-int openDB(sqlite3 *db);
+void createTable(sqlite3 *db, char *table);
+sqlite3 *openDB(sqlite3 *db);
 int closeDB(sqlite3 *db);
+int sanitizeTableName(char *table);
+void listTablesNames(sqlite3 *db);
+void insertIntoTable(sqlite3 *db, char *name, char *code, char *table);
 
 #endif

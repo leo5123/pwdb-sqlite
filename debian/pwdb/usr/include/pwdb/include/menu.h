@@ -1,5 +1,5 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef COMMANDS_H
+#define COMMANDS_H
 
 #include <sqlite3.h>
 #include <stdio.h>

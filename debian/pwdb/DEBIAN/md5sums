@@ -1,5 +1,5 @@
 0b9401544e7d76f40b4de9fa95f4994b  usr/bin/pwdb
 03b13dca9e5bfb83c6e620c2359d80f3  usr/include/pwdb/include/database.h
-0437a11216846505f3bae8b94bd28463  usr/include/pwdb/include/menu.h
+0437a11216846505f3bae8b94bd28463  usr/include/pwdb/include/commands.h
 d41d8cd98f00b204e9800998ecf8427e  usr/lib/pwdb/lib/utils/utils.c
 ca90b91302483825583cef7942f34de1  usr/share/doc/pwdb/changelog.Debian.gz
