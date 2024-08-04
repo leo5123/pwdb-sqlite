@@ -6,8 +6,11 @@ void helpCommand() {
     printf("Easy way for you to manage your passwords\n");
     printf("\n");
     printf("Common Commands: \n");
-    printf("create       Insert information into the database\n");
-    printf("delete       Remove information into the database\n");
+    printf("create       Create a group of information\n");
+    printf("insert       Insert information into a group\n");
+    printf("ls           List information\n");
+    printf("cp           Copy to your clipboard\n");
+
     printf("\n");
     printf("Global Options:     \n");
     printf("-g, --group         Storage space\n");
@@ -29,8 +32,7 @@ void createHelp() {
     printf("Usage:  pwdb create [OPTION] [ARG]\n");
     printf("\n");
     printf("Options:\n");
-    printf("-g, --group    Create a group\n");
-    printf("-p, --password    Insert a password into a group\n");
+    printf("-g, --group       Create a group\n");
     printf("\n");
     printf("Example use:\n");
     printf("pwdb create -g <group-name>\n");
