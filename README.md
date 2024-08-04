@@ -34,3 +34,22 @@ $ pwdb ls -g <group-name>
 // Send to your clipboard
 $ pwdb clip <group-name> <title>
 ```
+
+## Manual
+
+```
+ Usage:  pwdb COMMAND [OPTIONS] [ARG...]
+
+ Easy way for you to manage your passwords
+
+ Common Commands: 
+ add          Create a group of information
+ add          Insert information into a group
+ ls           List information
+ cp           Copy to your clipboard
+
+ Global Options:     
+ -g, --group         Storage space
+ -p, --password      Line of information inside of a group
+   
+```

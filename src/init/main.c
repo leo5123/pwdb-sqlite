@@ -1,4 +1,3 @@
-
 #include "../../include/commands.h"
 #include "../../include/handler.h"
 #include "../../include/messages.h"
@@ -7,16 +6,13 @@
 #include <stdio.h>
 #include <string.h>
 
-const char* createErrorCMD[] = {"create"};
-const char* createHelpCMD[] = {"create", "--help"};
-const char* createGroupShortCMD[] = {"create", "-g"};
-const char* createGroupCMD[] = {"create", "--group"};
+const char* createErrorCMD[] = {"add"};
+const char* createHelpCMD[] = {"add", "--help"};
+const char* createGroupShortCMD[] = {"add", "-g"};
+const char* createGroupCMD[] = {"add", "--group"};
 
-// const char* listGroupCMD[] = {"ls", "-g"};
-const char* insertErrorCMD[] = {"insert"};
-const char* insertHelpCMD[] = {"insert", "--help"};
-const char* insertIntoGroupShortCMD[] = {"insert", "-g"};
-const char* insertIntoGroupCMD[] = {"insert", "--password"};
+const char* insertIntoGroupShortCMD[] = {"add", "-p"};
+const char* insertIntoGroupCMD[] = {"add", "--password"};
 
 const char* listErrorCMD[] = {"ls"};
 const char* listHelpCMD[] = {"ls", "--help"};
@@ -32,8 +28,6 @@ Command commands[] = {
     {createGroupShortCMD, 2, createGroup},
     {createGroupCMD, 2, createGroup},
 
-    {insertErrorCMD, 1, insertError},
-    {insertHelpCMD, 2, insertHelp},
     {insertIntoGroupShortCMD, 2, insertIntoGroup},
     {insertIntoGroupCMD, 2, insertIntoGroup},
 
