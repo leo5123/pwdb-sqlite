@@ -5,9 +5,9 @@ Version: 1.0-1
 Auto-Built-Package: debug-symbols
 Architecture: amd64
 Maintainer: leo5123 <leoo.caldas@hotmail.com>
-Installed-Size: 16
+Installed-Size: 18
 Depends: pwdb (= 1.0-1)
 Section: debug
 Priority: optional
 Description: debug symbols for pwdb
-Build-Ids: c89bd30afa3ba2bde9a4ccbe6070204d8154ab99
+Build-Ids: eb92ad5265278f2ef6af23919705afffe0d82618

@@ -1,4 +1,4 @@
-#these are just notes, cont run
+#these are just notes, dont run
 
 #build
 debclean

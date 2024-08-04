@@ -2,12 +2,31 @@
 #include "../../include/messages.h"
 #include "../../include/input.h"
 #include <stdio.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <sqlite3.h>
 #include <stdlib.h>
 #include <string.h>
 
 sqlite3 *openDB(sqlite3 *db) {
-    int rc = sqlite3_open("pwclipper.db", &db);
+    const char *home = getenv("HOME");
+    char db_path[1024];
+
+    if (home == NULL) {
+        fprintf(stderr, "Cannot find HOME environment variable\n");
+        return NULL;
+    }
+
+    snprintf(db_path, sizeof(db_path), "%s/.pwdb/pwdb.db", home);
+
+    char dir_path[1024];
+    snprintf(dir_path, sizeof(dir_path), "%s/.pwdb", home);
+    if (mkdir(dir_path, 0700) != 0 && errno != EEXIST) {
+        perror("mkdir");
+        return NULL;
+    }
+
+    int rc = sqlite3_open(db_path, &db);
     if (rc != SQLITE_OK) {
         fprintf(stderr, "Cannot open database: %s\n", sqlite3_errmsg(db));
         sqlite3_close(db);
@@ -36,7 +55,7 @@ void createTable(sqlite3 *db, char *table) {
     rc = sqlite3_exec(db, sql, 0, 0, &err_msg);
 
     if (rc != SQLITE_OK) {
-        fprintf(stderr, "SQL error: %s\n", err_msg);
+        fprintf(stderr, "%s\n", err_msg);
         sqlite3_free(err_msg);
         sqlite3_close(db);
     }
@@ -46,7 +65,7 @@ void insertIntoTable(sqlite3 *db, char *table, char *name, char *code) {
     sqlite3_stmt *statement;
     int rc;
 
-    char insertInfo[256];
+    char insertInfo[2000];
     sprintf(insertInfo,
             "INSERT INTO %s (name, code) VALUES ('%s', '%s')",
             table, name, code);
@@ -70,65 +89,60 @@ void listTablesNames(sqlite3 *db) {
 
     rc = sqlite3_exec(db, sql, storeResult, &result, &zErrMsg);
     if (rc != SQLITE_OK) {
-        fprintf(stderr, "SQL error: %s\n", zErrMsg);
+        fprintf(stderr, "%s\n", zErrMsg);
         sqlite3_free(zErrMsg);
         return;
     }
+    listSingleColumn(result);
+}
 
-    if (result.rows > 0) {
-        int largestWordLength = 0;
-        for (int i = 0; i <= result.rows * result.columns; i++) {
-            int length = strlen(result.data[i]);
-            if (length > largestWordLength) {
-                largestWordLength = length;
-            }
-        }
+void listTable(sqlite3 *db, char *table) {
+    char *zErrMsg = 0;
+    int rc;
+    TableResult result = {0};
 
-        int columnWidth = largestWordLength + 2;
+    char sql[256];
+    sprintf(sql,
+            "SELECT name, code FROM ('%s')",
+            table);
 
-        for (int j = 0; j < columnWidth; j++) {
-            if (j == 0) {
-                printf("+");
-            }
-            printf("-");
-        }
-        printf("+\n");
-        for (int i = 0; i < result.columns; i++) {
-            printf("| %-*s", columnWidth - 1, "Groups ");
-        }
-        printf("|\n");
+    rc = sqlite3_exec(db, sql, storeResult, &result, &zErrMsg);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "%s\n", "Table doesn't exist");
+        return;
+    }
+    printTableResult(&result);
+    return;
+}
 
-        for (int i = 0; i < result.columns; i++) {
-            for (int j = 0; j < columnWidth; j++) {
-                if (j == 0) {
-                    printf("+");
-                }
-                printf("-");
-            }
-        }
-        printf("+\n");
+void listEntry(sqlite3 *db, char *table, char *name) {
+    char *zErrMsg = 0;
+    int rc;
+    TableResult result = {0};
 
-        for (int row = 1; row <= result.rows; row++) {
-            if (!strcmp(result.data[row], "sqlite_sequence")) {
-                continue;
-            }
-            for (int col = 0; col < result.columns; col++) {
-                printf("| %-*s ", columnWidth - 2, result.data[row * result.columns + col]);
-            }
+    int sql_size = snprintf(NULL, 0, "SELECT code FROM %s WHERE name = '%s';", table, name) + 1;
+    char *sql = malloc(sql_size);
+    if (sql == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return;
+    }
+    snprintf(sql, sql_size, "SELECT code FROM %s WHERE name = '%s';", table, name);
 
-            printf("|\n");
-        }
-        for (int j = 0; j < columnWidth; j++) {
-            if (j == 0) {
-                printf("+");
-            }
-            printf("-");
-        }
-        printf("+\n");
+    rc = sqlite3_exec(db, sql, storeCode, &result, &zErrMsg);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "%s\n", "Not found");
+        return;
     }
 
-    for (int i = 0; i <= result.rows * result.columns; i++) {
-        free(result.data[i]);
+    char *cmd;
+    int cmd_size = snprintf(NULL, 0, "echo -n '%s' | xclip -selection clipboard", result.data[0]) + 1;
+    cmd = (char *)malloc(cmd_size);
+    if (cmd == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return;
     }
-    free(result.data);
+
+    snprintf(cmd, cmd_size, "echo -n '%s' | xclip -selection clipboard", result.data[0]);
+    system(cmd);
+    return;
 }

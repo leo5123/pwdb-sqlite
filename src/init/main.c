@@ -15,13 +15,16 @@ const char* createGroupCMD[] = {"create", "--group"};
 // const char* listGroupCMD[] = {"ls", "-g"};
 const char* insertErrorCMD[] = {"insert"};
 const char* insertHelpCMD[] = {"insert", "--help"};
-const char* insertIntoGroupShortCMD[] = {"insert", "-p"};
+const char* insertIntoGroupShortCMD[] = {"insert", "-g"};
 const char* insertIntoGroupCMD[] = {"insert", "--password"};
 
 const char* listErrorCMD[] = {"ls"};
 const char* listHelpCMD[] = {"ls", "--help"};
 const char* listGroupCMD[] = {"ls", "--group"};
 const char* listGroupShortCMD[] = {"ls", "-g"};
+
+const char* clipPasswordCMD[] = {"cp"};
+const char* clipHelpCMD[] = {"cp", "--help"};
 
 Command commands[] = {
     {createErrorCMD, 1, createError},
@@ -34,10 +37,14 @@ Command commands[] = {
     {insertIntoGroupShortCMD, 2, insertIntoGroup},
     {insertIntoGroupCMD, 2, insertIntoGroup},
 
-    {listErrorCMD, 1, listError},
+    {listErrorCMD, 1, listGroup},
     {listHelpCMD, 2, listHelp},
     {listGroupCMD, 2, listGroup},
-    {listGroupShortCMD, 2, listGroup},
+    {listGroupShortCMD, 2, listPassword},
+    {listGroupShortCMD, 2, listPassword},
+
+    {clipPasswordCMD, 1, clipPassword},
+    {clipHelpCMD, 2, clipHelp},
 
     {NULL, 0, NULL}  // Sentinel value
 };

@@ -1,4 +1,18 @@
 filter in list of all files
 list of all pws
 clip pw in one line
-error with one arg right others wrong
+delete db option in case of corruption
+db needs to appear in a specific location for sudo and not sudo
+needs authentification for non sudo maybe polkit?
+check if table exists before insert
+check if password name already exists
+
+\\ eliminate this error
+leo@DESKTOP-1QU0ENM:~/c/pwdb$ ./pwdb ls -g work2
+SQL error: no such table: work2
+
+\\ murder this error
+leo@DESKTOP-1QU0ENM:~/c/pwdb$ ./pwdb ls -g work
+No tables found.
+
+unlimit the size of words

@@ -13,7 +13,7 @@ OBJ_DIR = obj
 SRC_FILES = $(SRC_DIR)/init/main.c $(DATABASE_DIR)/database.c $(CLI_DIR)/commands.c $(CLI_DIR)/handler/handler.c $(LIB_DIR)/utils/messages.c $(LIB_DIR)/utils/input.c
 
 # Define the output executable
-OUTPUT = pwclipper
+OUTPUT = pwdb
 
 # Define the libraries to link against
 LIBS = -lsqlite3
