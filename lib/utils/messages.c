@@ -5,16 +5,16 @@ void helpCommand() {
     printf("\n");
     printf("Easy way for you to manage your passwords\n");
     printf("\n");
-    printf("Common Commands: \n");
-    printf("add          Create a group of information\n");
-    printf("add          Insert information into a group\n");
-    printf("ls           List information\n");
-    printf("cp           Copy to your clipboard\n");
+    printf("Commands: \n");
+    printf(" add          Create a group of information\n");
+    printf(" add          Insert information into a group\n");
+    printf(" ls           List information\n");
+    printf(" cp           Copy to your clipboard\n");
 
     printf("\n");
     printf("Global Options:     \n");
-    printf("-g, --group         Storage space\n");
-    printf("-p, --password      Line of information inside of a group\n");
+    printf(" -g, --group         Storage space\n");
+    printf(" -p, --password      Line of information inside of a group\n");
     printf("\n");
 }
 
