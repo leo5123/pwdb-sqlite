@@ -21,12 +21,12 @@ sqlite3 *openDB(sqlite3 *db) {
     }
 
     if (getuid() == 0) {
-        const char *user = getenv("SUDO_USER");
-        if (user != NULL) {
-            struct passwd *pw = getpwnam(user);
-            if (pw != NULL) {
-                home = pw->pw_dir;
-            }
+        home = "/root";
+    } else {
+        home = getenv("HOME");
+        if (home == NULL) {
+            fprintf(stderr, "Cannot find HOME environment variable\n");
+            return NULL;
         }
     }
 
@@ -37,6 +37,7 @@ sqlite3 *openDB(sqlite3 *db) {
         perror("mkdir");
         return NULL;
     }
+    printf("%s, home sweet home\n", db_path);
 
     int rc = sqlite3_open(db_path, &db);
     if (rc != SQLITE_OK) {
