@@ -1,9 +1,9 @@
-8d0b5f4304936721f2197277d2e6ec47  usr/bin/pwdb
+dc81e8a39dc35c73801af2f31ca1bc45  usr/bin/pwdb
 4d4b16792fdc489871ec3eb5aa8d1479  usr/include/pwdb/include/commands.h
 5ba8d462f10556fd6c4392bde6145c2e  usr/include/pwdb/include/database.h
 ed5362020e2b2214d468091202044952  usr/include/pwdb/include/handler.h
-c26855fdfbbdfaa62fff2776bfb18d12  usr/include/pwdb/include/input.h
-d42c204cc325842d878d10ecdf220723  usr/include/pwdb/include/messages.h
-ffbfd2ae4f0671371ee2bd98cd428993  usr/lib/pwdb/lib/utils/input.c
-c5f58befb9aec4105cef1f511f2b8f06  usr/lib/pwdb/lib/utils/messages.c
+f3b9673935afa0f3611c4213c22694e8  usr/include/pwdb/include/input.h
+c8ecb06e3d6437454a0aad40601b27db  usr/include/pwdb/include/messages.h
+9b1145610660c663190fb022451e217e  usr/lib/pwdb/lib/utils/input.c
+4ccc1d009242dbe11637d19a2da0079d  usr/lib/pwdb/lib/utils/messages.c
 ca90b91302483825583cef7942f34de1  usr/share/doc/pwdb/changelog.Debian.gz

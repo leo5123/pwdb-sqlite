@@ -6,8 +6,7 @@ void helpCommand() {
     printf("Easy way for you to manage your passwords\n");
     printf("\n");
     printf("Commands: \n");
-    printf(" add          Create a group of information\n");
-    printf(" add          Insert information into a group\n");
+    printf(" add          Create a group or insert into a group\n");
     printf(" ls           List information\n");
     printf(" cp           Copy to your clipboard\n");
 
@@ -109,6 +108,6 @@ void clipHelp() {
     printf("Usage:  pwdb cp [ARG...]\n");
     printf("\n");
     printf("Example use:\n");
-    printf("pwdb cp <group-name> <code>\n");
+    printf("pwdb cp <group-name> <title>\n");
     printf("\n");
 }

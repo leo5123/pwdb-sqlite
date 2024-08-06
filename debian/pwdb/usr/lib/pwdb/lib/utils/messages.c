@@ -5,49 +5,54 @@ void helpCommand() {
     printf("\n");
     printf("Easy way for you to manage your passwords\n");
     printf("\n");
-    printf("Common Commands: \n");
-    printf("create       Insert information into the database\n");
-    printf("delete       Remove information into the database\n");
+    printf("Commands: \n");
+    printf(" add          Create a group or insert into a group\n");
+    printf(" ls           List information\n");
+    printf(" cp           Copy to your clipboard\n");
+
     printf("\n");
     printf("Global Options:     \n");
-    printf("-g, --group         Storage space\n");
-    printf("-p, --password      Line of information inside of a group\n");
+    printf(" -g, --group         Storage space\n");
+    printf(" -p, --password      Line of information inside of a group\n");
     printf("\n");
 }
 
 void createError() {
-    printf("\"pwdb create\" requires at least 1 argument and 1 option. \n");
-    printf("See \"pwdb create --help\".\n");
     printf("\n");
-    printf("Usage:  pwdb create [OPTION] [ARG]\n");
+    printf("See \"pwdb add --help\".\n");
     printf("\n");
-    printf("Create a group in the database allowing you to insert data in them.\n");
+    printf("Usage:  pwdb add [OPTION] [ARG...]\n");
+    printf("\n");
+    printf("Insert something into the database\n");
 }
 
 void createHelp() {
     printf("\n");
-    printf("Usage:  pwdb create [OPTION] [ARG]\n");
+    printf("Usage:  pwdb add [OPTION] [ARG...]\n");
     printf("\n");
     printf("Options:\n");
-    printf("-g, --group    Create a group\n");
-    printf("-p, --password    Insert a password into a group\n");
+    printf("-g, --group       Create a group\n");
+    printf("-p, --password    Insert into a group\n");
     printf("\n");
     printf("Example use:\n");
-    printf("pwdb create -g <group-name>\n");
-    printf("pwdb create --group <group-name>\n");
+    printf("pwdb add -g <group-name>\n");
+    printf("pwdb add --group <group-name>\n");
+    printf("\n");
+    printf("pwdb add -p <group-name> <title> <password>\n");
+    printf("pwdb add --password <group-name> <title> <password>\n");
     printf("\n");
 }
 
 void createArgumentRequired() {
     printf("\n");
-    printf("Usage:  pwdb create [OPTION] [ARG]\n");
-    printf("See \"pwdb create --help\".\n");
+    printf("Usage:  pwdb add -g [ARG]\n");
+    printf("See \"pwdb add --help\".\n");
     printf("\n");
     printf("One argument required\n");
 }
 
 void createExample() {
-    printf("Usage:  pwdb create [OPTION] [ARG]\n");
+    printf("Usage:  pwdb add -g [ARG]\n");
     printf("\n");
     printf("Only letters, numbers, underscores and hyppens\n");
     printf("        Spaces are not allowed!!\n");
@@ -61,52 +66,31 @@ void createExample() {
 
 void insertArgumentRequired() {
     printf("\n");
-    printf("Usage:  pwdb insert [OPTION] [ARG...]\n");
-    printf("See \"pwdb insert --help\".\n");
+    printf("Usage:  pwdb add -p [ARG...]\n");
+    printf("See \"pwdb add --help\".\n");
     printf("\n");
     printf("Three arguments required\n");
 }
 
-void insertError() {
-    printf("See \"pwdb insert --help\".\n");
-    printf("\n");
-    printf("Usage:  pwdb insert [OPTION] [ARG...]\n");
-    printf("\n");
-    printf("Insert information into a group\n");
-}
-
-void insertHelp() {
-    printf("\n");
-    printf("Usage:  pwdb insert [OPTION] [ARG...]\n");
-    printf("\n");
-    printf("Options:\n");
-    printf("-p, --password    Create a group\n");
-    printf("\n");
-    printf("Example use:\n");
-    printf("pwdb insert -p           <group-name> <name> <password>\n");
-    printf("pwdb insert --password   <group-name> <name> <password>\n");
-    printf("\n");
-}
-
 void listError() {
     printf("\n");
-    printf("See \"pwdb list --help\".\n");
+    printf("See \"pwdb ls --help\".\n");
     printf("\n");
-    printf("Usage:  pwdb list [OPTION] [ARG...]\n");
+    printf("Usage:  pwdb ls [OPTION...] [ARG...]\n");
     printf("\n");
     printf("Lists information.\n");
 }
 
 void listHelp() {
     printf("\n");
-    printf("Usage:  pwdb list [OPTION...] [ARG...]\n");
+    printf("Usage:  pwdb ls [OPTION...] [ARG...]\n");
     printf("\n");
     printf("Options:\n");
     printf("-g, --group    Show groups\n");
     printf("\n");
     printf("Example use:\n");
-    printf("pwdb list -g <group-name>\n");
-    printf("pwdb list --group <group-name>\n");
+    printf("pwdb ls -g <group-name>\n");
+    printf("pwdb ls --group <group-name>\n");
     printf("\n");
 }
 
@@ -116,7 +100,7 @@ void clipError() {
     printf("\n");
     printf("Usage:  pwdb cp [ARG...]\n");
     printf("\n");
-    printf("Copys the information.\n");
+    printf("Copies the information\n");
 }
 
 void clipHelp() {
@@ -124,6 +108,6 @@ void clipHelp() {
     printf("Usage:  pwdb cp [ARG...]\n");
     printf("\n");
     printf("Example use:\n");
-    printf("pwdb cp <group-name> <code>\n");
+    printf("pwdb cp <group-name> <title>\n");
     printf("\n");
 }

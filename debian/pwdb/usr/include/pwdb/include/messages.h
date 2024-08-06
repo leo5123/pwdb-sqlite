@@ -9,8 +9,6 @@ void createError();
 void createArgumentRequired();
 void createExample();
 void insertArgumentRequired();
-void insertError();
-void insertHelp();
 void listError();
 void listHelp();
 void clipError();

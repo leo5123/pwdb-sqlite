@@ -65,20 +65,31 @@ void insertIntoTable(sqlite3 *db, char *table, char *name, char *code) {
     sqlite3_stmt *statement;
     int rc;
 
-    char insertInfo[2000];
-    sprintf(insertInfo,
-            "INSERT INTO %s (name, code) VALUES ('%s', '%s')",
-            table, name, code);
+    const char *sql = "INSERT INTO %s (name, code) VALUES (?, ?)";
+    int sqlSize = snprintf(NULL, 0, sql, table) + 1;
 
-    rc = sqlite3_prepare_v2(db, insertInfo, strlen(insertInfo), &statement, NULL);
-    rc = sqlite3_step(statement);
+    char *query = malloc(sqlSize);
+    if (query == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return;
+    }
+    snprintf(query, sqlSize, sql, table);
 
-    if (rc == SQLITE_OK) {
-        printf("Error inserting data: ");
-        sqlite3_errmsg(db);
+    rc = sqlite3_prepare_v2(db, query, -1, &statement, NULL);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "SQL error: %s\n", sqlite3_errmsg(db));
+        return;
     }
 
-    sqlite3_finalize(statement);
+    sqlite3_bind_text(statement, 1, name, -1, SQLITE_STATIC);
+    sqlite3_bind_text(statement, 2, code, -1, SQLITE_STATIC);
+
+    rc = sqlite3_step(statement);
+    if (rc != SQLITE_DONE) {
+        fprintf(stderr, "Error inserting data: %s\n", sqlite3_errmsg(db));
+        return;
+    }
+    return;
 }
 
 void listTablesNames(sqlite3 *db) {
@@ -101,12 +112,16 @@ void listTable(sqlite3 *db, char *table) {
     int rc;
     TableResult result = {0};
 
-    char sql[256];
-    sprintf(sql,
-            "SELECT name, code FROM ('%s')",
-            table);
+    int sqlSize = snprintf(NULL, 0, "SELECT name, code FROM %s", table) + 1;
+    char *sql = (char *)malloc(sqlSize);
+    if (sql == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return;
+    }
 
-    rc = sqlite3_exec(db, sql, storeResult, &result, &zErrMsg);
+    snprintf(sql, sqlSize, "SELECT name, code FROM %s", table);
+
+        rc = sqlite3_exec(db, sql, storeResult, &result, &zErrMsg);
     if (rc != SQLITE_OK) {
         fprintf(stderr, "%s\n", "Table doesn't exist");
         return;
@@ -135,14 +150,25 @@ void listEntry(sqlite3 *db, char *table, char *name) {
     }
 
     char *cmd;
-    int cmd_size = snprintf(NULL, 0, "echo -n '%s' | xclip -selection clipboard", result.data[0]) + 1;
+    int cmd_size;
+    if (getenv("WAYLAND_DISPLAY") && !getenv("WSLENV")) {
+        cmd_size = snprintf(NULL, 0, "echo -n '%s' | wl-copy", result.data[0]) + 1;
+    } else {
+        cmd_size = snprintf(NULL, 0, "echo -n '%s' | xclip -selection clipboard", result.data[0]) + 1;
+    }
+
     cmd = (char *)malloc(cmd_size);
     if (cmd == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         return;
     }
 
-    snprintf(cmd, cmd_size, "echo -n '%s' | xclip -selection clipboard", result.data[0]);
+    if (getenv("WAYLAND_DISPLAY") && !getenv("WSLENV")) {
+        snprintf(cmd, cmd_size, "echo -n '%s' | wl-copy", result.data[0]);
+    } else {
+        snprintf(cmd, cmd_size, "echo -n '%s' | xclip -selection clipboard", result.data[0]);
+    }
+
     system(cmd);
     return;
 }

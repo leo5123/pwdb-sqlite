@@ -14,5 +14,6 @@ void listSingleColumn(TableResult result);
 int storeTwoRowResult(void *param, int argc, char **argv, char **azColName);
 void printTableResult(TableResult *result);
 int storeCode(void *param, int argc, char **argv, char **azColName);
+void printWrappedCell(const char *text, int width);
 
 #endif

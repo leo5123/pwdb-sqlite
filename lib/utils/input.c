@@ -125,7 +125,7 @@ int storeTwoRowResult(void *param, int argc, char **argv, char **azColName) {
 
     if (result->rows == 0 && result->data == NULL) {
         result->columns = argc;
-        result->data = malloc(sizeof(char *) * argc);  // Allocate memory for the header row
+        result->data = malloc(sizeof(char *) * argc);
         if (!result->data) {
             fprintf(stderr, "Memory allocation failed\n");
             exit(1);
@@ -139,7 +139,7 @@ int storeTwoRowResult(void *param, int argc, char **argv, char **azColName) {
         }
     }
 
-    result->data = realloc(result->data, sizeof(char *) * (result->rows + 2) * result->columns);  // Allocate memory for the new row
+    result->data = realloc(result->data, sizeof(char *) * (result->rows + 2) * result->columns);
     if (!result->data) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(1);
@@ -165,13 +165,29 @@ void printLineColumn(int columnWidths[], int numColumns) {
     printf("+\n");
 }
 
+void printWrappedCell(const char *text, int width) {
+    int textLen = strlen(text);
+    int start = 0;
+
+    while (start < textLen) {
+        if (start > 0) {
+            printf("|");
+        }
+
+        printf(" %-*.*s ", width - 2, width - 2, &text[start]);
+        start += width - 2;
+    }
+    printf("|");
+}
+
 void printTableResult(TableResult *result) {
     if (result->rows == 0) {
         printf("No content in that table\n");
         return;
     }
 
-    // Calculate the column widths
+    const int maxWidth = 100;
+
     int columnWidths[result->columns];
     for (int i = 0; i < result->columns; i++) {
         columnWidths[i] = strlen(result->data[i]);
@@ -181,10 +197,13 @@ void printTableResult(TableResult *result) {
                 columnWidths[i] = cellLength;
             }
         }
-        columnWidths[i] += 2;  // Add padding
+        columnWidths[i] += 2;
+
+        if (columnWidths[i] > maxWidth) {
+            columnWidths[i] = maxWidth;
+        }
     }
 
-    // Print the header
     printLineColumn(columnWidths, result->columns);
     for (int col = 0; col < result->columns; col++) {
         printf("| %-*s ", columnWidths[col] - 2, result->data[col]);
@@ -192,12 +211,25 @@ void printTableResult(TableResult *result) {
     printf("|\n");
     printLineColumn(columnWidths, result->columns);
 
-    // Print the rows
     for (int row = 1; row <= result->rows; row++) {
-        for (int col = 0; col < result->columns; col++) {
-            printf("| %-*s ", columnWidths[col] - 2, result->data[row * result->columns + col]);
+        int moreLines = 1;
+        int line = 0;
+        while (moreLines) {
+            moreLines = 0;
+            for (int col = 0; col < result->columns; col++) {
+                const char *cell = result->data[row * result->columns + col];
+                int cellLength = strlen(cell);
+                int start = line * (columnWidths[col] - 2);
+                if (start < cellLength) {
+                    moreLines = 1;
+                    printf("| %-*.*s ", columnWidths[col] - 2, columnWidths[col] - 2, &cell[start]);
+                } else {
+                    printf("| %-*s ", columnWidths[col] - 2, "");
+                }
+            }
+            printf("|\n");
+            line++;
         }
-        printf("|\n");
     }
     printLineColumn(columnWidths, result->columns);
 }
