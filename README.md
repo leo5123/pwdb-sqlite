@@ -7,6 +7,7 @@ Easy way to clip your password into your clipboard in linux.
 
 ```
 $ echo "deb [trusted=yes] https://leo5123.github.io/pwdb-sqlite/ ./" | sudo tee /etc/apt/sources.list.d/pwdb.list
+$ sudo apt update
 $ sudo apt install pwdb
 ```
 
