@@ -1,5 +1,5 @@
  
-## pwdb-sqlite
+## pwdb
 
 Easy way to clip your password into your clipboard in linux.
 
@@ -39,18 +39,17 @@ $ pwdb clip <group-name> <title>
 ## Manual
 
 ```
- Usage:  pwdb COMMAND [OPTIONS] [ARG...]
+Usage:  pwdb COMMAND [OPTIONS] [ARG...]
 
- Easy way for you to manage your passwords
+Easy way for you to manage your passwords
 
- Commands: 
-  add          Create a group of information
-  add          Insert information into a group
-  ls           List information
-  cp           Copy to your clipboard
+Commands: 
+ add          Create a group or insert into a group
+ ls           List information
+ cp           Copy to your clipboard
 
- Global Options:     
-  -g, --group         Storage space
-  -p, --password      Line of information inside of a group
+Global Options:     
+ -g, --group         Storage space
+ -p, --password      Line of information inside of a group
    
 ```
