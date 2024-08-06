@@ -37,7 +37,6 @@ sqlite3 *openDB(sqlite3 *db) {
         perror("mkdir");
         return NULL;
     }
-    printf("%s, home sweet home\n", db_path);
 
     int rc = sqlite3_open(db_path, &db);
     if (rc != SQLITE_OK) {
