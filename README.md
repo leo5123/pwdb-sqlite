@@ -51,5 +51,4 @@ Commands:
 Global Options:     
  -g, --group         Storage space
  -p, --password      Line of information inside of a group
-   
 ```

@@ -7,20 +7,32 @@
 #include <sqlite3.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pwd.h>
+#include <unistd.h>
 
 sqlite3 *openDB(sqlite3 *db) {
     const char *home = getenv("HOME");
     char db_path[1024];
+    char dir_path[1024];
 
     if (home == NULL) {
         fprintf(stderr, "Cannot find HOME environment variable\n");
         return NULL;
     }
 
-    snprintf(db_path, sizeof(db_path), "%s/.pwdb/pwdb.db", home);
+    if (getuid() == 0) {
+        const char *user = getenv("SUDO_USER");
+        if (user != NULL) {
+            struct passwd *pw = getpwnam(user);
+            if (pw != NULL) {
+                home = pw->pw_dir;
+            }
+        }
+    }
 
-    char dir_path[1024];
+    snprintf(db_path, sizeof(db_path), "%s/.pwdb/pwdb.db", home);
     snprintf(dir_path, sizeof(dir_path), "%s/.pwdb", home);
+
     if (mkdir(dir_path, 0700) != 0 && errno != EEXIST) {
         perror("mkdir");
         return NULL;
@@ -121,7 +133,7 @@ void listTable(sqlite3 *db, char *table) {
 
     snprintf(sql, sqlSize, "SELECT name, code FROM %s", table);
 
-        rc = sqlite3_exec(db, sql, storeResult, &result, &zErrMsg);
+    rc = sqlite3_exec(db, sql, storeResult, &result, &zErrMsg);
     if (rc != SQLITE_OK) {
         fprintf(stderr, "%s\n", "Table doesn't exist");
         return;
