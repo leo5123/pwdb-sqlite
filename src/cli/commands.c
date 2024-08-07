@@ -43,11 +43,15 @@ void clipPassword(sqlite3* db, int argc, char** argv) {
         return;
     }
     if (argc == 2) {
+        copyEntryFromDefault(db, argv[2]);
+        return;
+    }
+    if (argc >= 4) {
         clipError();
         return;
     }
 
-    listEntry(db, argv[2], argv[3]);
+    copyEntry(db, argv[2], argv[3]);
     return;
 }
 

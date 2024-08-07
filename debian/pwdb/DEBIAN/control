@@ -2,7 +2,7 @@ Package: pwdb
 Version: 1.0-1
 Architecture: amd64
 Maintainer: leo5123 <leoo.caldas@hotmail.com>
-Installed-Size: 61
+Installed-Size: 62
 Depends: libc6 (>= 2.34), libsqlite3-0 (>= 3.5.9)
 Section: utils
 Priority: optional

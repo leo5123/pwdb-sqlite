@@ -44,12 +44,32 @@ sqlite3 *openDB(sqlite3 *db) {
         sqlite3_close(db);
         return NULL;
     }
+    createDefaultTable(db);
     return db;
 }
 
 int closeDB(sqlite3 *db) {
     sqlite3_close(db);
     return 0;
+}
+
+void createDefaultTable(sqlite3 *db) {
+    char *err_msg = 0;
+    int rc;
+    char sql[256];
+
+    snprintf(sql, sizeof(sql),
+             "CREATE TABLE IF NOT EXISTS pwdb ("
+             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+             "name TEXT NOT NULL, code INTEGER NOT NULL);");
+
+    rc = sqlite3_exec(db, sql, 0, 0, &err_msg);
+
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "%s\n", err_msg);
+        sqlite3_free(err_msg);
+        sqlite3_close(db);
+    }
 }
 
 void createTable(sqlite3 *db, char *table) {
@@ -142,7 +162,49 @@ void listTable(sqlite3 *db, char *table) {
     return;
 }
 
-void listEntry(sqlite3 *db, char *table, char *name) {
+void copyEntryFromDefault(sqlite3 *db, char *name) {
+    char *zErrMsg = 0;
+    int rc;
+    TableResult result = {0};
+
+    int sql_size = snprintf(NULL, 0, "SELECT code FROM pwdb WHERE name = '%s';", name) + 1;
+    char *sql = malloc(sql_size);
+    if (sql == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return;
+    }
+    snprintf(sql, sql_size, "SELECT code FROM pwdb WHERE name = '%s';", name);
+    rc = sqlite3_exec(db, sql, storeCode, &result, &zErrMsg);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "%s\n", "Not found");
+        return;
+    }
+
+    char *cmd;
+    int cmd_size;
+    if (getenv("WAYLAND_DISPLAY") && !getenv("WSLENV")) {
+        cmd_size = snprintf(NULL, 0, "echo -n '%s' | wl-copy", result.data[0]) + 1;
+    } else {
+        cmd_size = snprintf(NULL, 0, "echo -n '%s' | xclip -selection clipboard", result.data[0]) + 1;
+    }
+
+    cmd = (char *)malloc(cmd_size);
+    if (cmd == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return;
+    }
+
+    if (getenv("WAYLAND_DISPLAY") && !getenv("WSLENV")) {
+        snprintf(cmd, cmd_size, "echo -n '%s' | wl-copy", result.data[0]);
+    } else {
+        snprintf(cmd, cmd_size, "echo -n '%s' | xclip -selection clipboard", result.data[0]);
+    }
+
+    system(cmd);
+    return;
+}
+
+void copyEntry(sqlite3 *db, char *table, char *name) {
     char *zErrMsg = 0;
     int rc;
     TableResult result = {0};

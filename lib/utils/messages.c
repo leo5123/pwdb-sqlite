@@ -15,6 +15,11 @@ void helpCommand() {
     printf(" -g, --group         Storage space\n");
     printf(" -p, --password      Line of information inside of a group\n");
     printf("\n");
+    printf("Example routine:\n");
+    printf(" pwdb add -g <group-name>\n");
+    printf(" pwdb add -p <group-name> <title> <password>\n");
+    printf(" pwdb ls -g <group-name>\n");
+    printf(" pwdb cp <group-name> <title>\n");
 }
 
 void createError() {
@@ -31,15 +36,13 @@ void createHelp() {
     printf("Usage:  pwdb add [OPTION] [ARG...]\n");
     printf("\n");
     printf("Options:\n");
-    printf("-g, --group       Create a group\n");
-    printf("-p, --password    Insert into a group\n");
+    printf(" -g, --group       Create a group\n");
+    printf(" -p, --password    Insert into a group\n");
     printf("\n");
     printf("Example use:\n");
-    printf("pwdb add -g <group-name>\n");
-    printf("pwdb add --group <group-name>\n");
+    printf(" pwdb add -g <group-name>\n");
     printf("\n");
-    printf("pwdb add -p <group-name> <title> <password>\n");
-    printf("pwdb add --password <group-name> <title> <password>\n");
+    printf(" pwdb add -p <group-name> <title> <password>\n");
     printf("\n");
 }
 

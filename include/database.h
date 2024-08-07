@@ -12,6 +12,8 @@ int sanitizeTableName(char *table);
 void listTablesNames(sqlite3 *db);
 void insertIntoTable(sqlite3 *db, char *name, char *code, char *table);
 void listTable(sqlite3 *db, char *table);
-void listEntry(sqlite3 *db, char *table, char *name);
+void copyEntry(sqlite3 *db, char *table, char *name);
+void createDefaultTable(sqlite3 *db);
+void copyEntryFromDefault(sqlite3 *db, char *name);
 
 #endif

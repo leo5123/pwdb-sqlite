@@ -24,16 +24,18 @@ $ dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
 
 ```
 // Create a group
-$ pwdb create -g <group-name>
+$ pwdb add -g <group-name>
 
 // Insert the password into the group
-$ pwdb insert -g <group-name> <title> <password>
+$ pwdb add -p <group-name> <title> <password>
 
 // Show what is in the group
 $ pwdb ls -g <group-name> 
 
 // Send to your clipboard
-$ pwdb clip <group-name> <title>
+$ pwdb cp <group-name> <title>
+
+There is a way to make the "cp" command shorter; you can omit the table name if you use a table called "pwdb"
 ```
 
 ## Manual
@@ -52,3 +54,5 @@ Global Options:
  -g, --group         Storage space
  -p, --password      Line of information inside of a group
 ```
+
+
