@@ -1,4 +1,4 @@
 ./pwdb
 ./include
 ./lib
-./lib/manual
+./lib/manual/pwdb.1.gz

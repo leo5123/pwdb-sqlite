@@ -21,6 +21,7 @@ void helpCommand() {
     printf(" pwdb add -p <group-name> <title> <password>\n");
     printf(" pwdb ls -g <group-name>\n");
     printf(" pwdb cp <group-name> <title>\n");
+    printf("aa\n");
 }
 
 void createError() {
