@@ -9,6 +9,7 @@ void helpCommand() {
     printf(" add          Create a group or insert into a group\n");
     printf(" ls           List information\n");
     printf(" cp           Copy to your clipboard\n");
+    printf(" rm           Delete information\n");
 
     printf("\n");
     printf("Global Options:     \n");
@@ -20,6 +21,7 @@ void helpCommand() {
     printf(" pwdb add -p <group-name> <title> <password>\n");
     printf(" pwdb ls -g <group-name>\n");
     printf(" pwdb cp <group-name> <title>\n");
+    printf("aa\n");
 }
 
 void createError() {
@@ -112,5 +114,24 @@ void clipHelp() {
     printf("\n");
     printf("Example use:\n");
     printf("pwdb cp <group-name> <title>\n");
+    printf("\n");
+}
+
+void deleteError() {
+    printf("\n");
+    printf("See \"pwdb rm --help\"\n");
+    printf("\n");
+    printf("Usage:  pwdb rm [OPTION] [ARG]\n");
+    printf("\n");
+    printf("Deletes information\n");
+}
+
+void deleteHelp() {
+    printf("\n");
+    printf("Usage:  pwdb rm [OPTION] [ARG]\n");
+    printf("\n");
+    printf("Example use:\n");
+    printf("pwdb rm -g <group-name>\n");
+    printf("pwdb rm -p <group-name> <title>\n");
     printf("\n");
 }

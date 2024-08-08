@@ -1,3 +1,4 @@
 pwdb /usr/bin
 include /usr/include/pwdb
 lib /usr/lib/pwdb
+lib/manual/pwdb.1.gz /usr/share/man/man1

@@ -22,6 +22,13 @@ const char* listGroupShortCMD[] = {"ls", "-g"};
 const char* clipPasswordCMD[] = {"cp"};
 const char* clipHelpCMD[] = {"cp", "--help"};
 
+const char* deleteErrorCMD[] = {"rm"};
+const char* deleteHelpCMD[] = {"rm", "--help"};
+const char* deleteGroupCMD[] = {"rm", "--group"};
+const char* deleteGroupShortCMD[] = {"rm", "-g"};
+const char* deletePasswordCMD[] = {"rm", "--password"};
+const char* deletePasswordShortCMD[] = {"rm", "-p"};
+
 Command commands[] = {
     {createErrorCMD, 1, createError},
     {createHelpCMD, 2, createHelp},
@@ -39,6 +46,15 @@ Command commands[] = {
 
     {clipPasswordCMD, 1, clipPassword},
     {clipHelpCMD, 2, clipHelp},
+
+    {deleteErrorCMD, 1, deleteError},
+    {deleteHelpCMD, 2, deleteHelp},
+
+    {deleteGroupCMD, 2, deleteGroup},
+    {deleteGroupShortCMD, 2, deleteGroup},
+
+    {deletePasswordCMD, 2, deletePassword},
+    {deletePasswordShortCMD, 2, deletePassword},
 
     {NULL, 0, NULL}  // Sentinel value
 };

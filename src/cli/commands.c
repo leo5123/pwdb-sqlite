@@ -38,7 +38,7 @@ void listGroup(sqlite3* db, int argc, char** argv) {
 }
 
 void clipPassword(sqlite3* db, int argc, char** argv) {
-    if (argc == 1) {
+    if (argc == 1 || argc >= 4) {
         clipError();
         return;
     }
@@ -46,15 +46,24 @@ void clipPassword(sqlite3* db, int argc, char** argv) {
         copyEntryFromDefault(db, argv[2]);
         return;
     }
-    if (argc >= 4) {
-        clipError();
-        return;
-    }
-
     copyEntry(db, argv[2], argv[3]);
     return;
 }
 
-void deleteGroup(sqlite3* db) {
-    printf("delete ");
+void deleteGroup(sqlite3* db, int argc, char** argv) {
+    if (argc == 1 || argc == 2 || argc >= 5) {
+        deleteError();
+        return;
+    }
+    deleteTable(db, argv[3]);
+    return;
+}
+
+void deletePassword(sqlite3* db, int argc, char** argv) {
+    if (argc == 1 || argc == 2 || argc >= 6) {
+        deleteError();
+        return;
+    }
+    deleteEntry(db, argv[3], argv[4]);
+    return;
 }

@@ -7,10 +7,11 @@
 #include <string.h>
 
 void createGroup(sqlite3* db, int argc, char** argv);
-void deleteGroup(sqlite3* db, int argc, char** argv);
 void insertIntoGroup(sqlite3* db, int argc, char** argv);
 void listGroup(sqlite3* db, int argc, char** argv);
 void listPassword(sqlite3* db, int argc, char** argv);
 void clipPassword(sqlite3* db, int argc, char** argv);
+void deleteGroup(sqlite3* db, int argc, char** argv);
+void deletePassword(sqlite3* db, int argc, char** argv);
 
 #endif

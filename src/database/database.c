@@ -246,3 +246,43 @@ void copyEntry(sqlite3 *db, char *table, char *name) {
     system(cmd);
     return;
 }
+
+void deleteTable(sqlite3 *db, char *table) {
+    char *zErrMsg = 0;
+    int rc;
+
+    int sql_size = snprintf(NULL, 0, "DROP TABLE IF EXISTS %s;", table) + 1;
+    char *sql = malloc(sql_size);
+    if (sql == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return;
+    }
+    snprintf(sql, sql_size, "DROP TABLE IF EXISTS %s;", table);
+
+    rc = sqlite3_exec(db, sql, 0, 0, &zErrMsg);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "%s\n", "Not found");
+        return;
+    }
+    return;
+}
+
+void deleteEntry(sqlite3 *db, char *table, char *name) {
+    char *zErrMsg = 0;
+    int rc;
+
+    int sql_size = snprintf(NULL, 0, "DELETE FROM %s WHERE name = '%s';", table, name) + 1;
+    char *sql = malloc(sql_size);
+    if (sql == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return;
+    }
+    snprintf(sql, sql_size, "DELETE FROM %s WHERE name = '%s';", table, name);
+
+    rc = sqlite3_exec(db, sql, 0, 0, &zErrMsg);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "%s\n", "Not found");
+        return;
+    }
+    return;
+}
