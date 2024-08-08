@@ -1,0 +1,52 @@
+.PP
+.TH PWDB 1 "AUGUST 2024" "VERSION 1.0" "USER COMMANDS"
+.SH NAME
+pwdb \- Easy way for you to manage your passwords
+.SH SYNOPSIS
+.B pwdb
+[\fBCOMMAND\fP] [\fBOPTIONS\fP] [\fBARG...\fP]
+.SH DESCRIPTION
+.B pwdb
+is a command-line tool for managing passwords. It allows users to create groups, add passwords to groups, list stored information, copy passwords to the clipboard, and delete information.
+
+.SH COMMANDS
+.TP
+.B add
+Create a group or insert into a group.
+.TP
+.B ls
+List information.
+.TP
+.B cp
+Copy to your clipboard.
+.TP
+.B rm
+Delete information.
+
+.SH GLOBAL OPTIONS
+.TP
+\fB-g\fP, \fB--group\fP
+Specify the storage space or group.
+.TP
+\fB-p\fP, \fB--password\fP
+Specify the line of information inside of a group.
+
+.SH EXAMPLES
+.TP
+Create a group:
+.B pwdb add -g <group-name>
+.TP
+Add a password to a group:
+.B pwdb add -p <group-name> <title> <password>
+.TP
+List information in a group:
+.B pwdb ls -g <group-name>
+.TP
+Copy a password to the clipboard:
+.B pwdb cp <group-name> <title>
+.SH AUTHOR
+Written by leo5123.
+.SH REPORTING BUGS
+Report bugs to leoo.caldas@hotmail.com.
+.SH COPYRIGHT
+Copyright © 2024 leo5123. License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>. This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.

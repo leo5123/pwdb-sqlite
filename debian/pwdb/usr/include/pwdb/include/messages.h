@@ -13,5 +13,7 @@ void listError();
 void listHelp();
 void clipError();
 void clipHelp();
+void deleteError();
+void deleteHelp();
 
 #endif
