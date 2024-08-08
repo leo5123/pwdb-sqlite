@@ -203,14 +203,12 @@ void printTableResult(TableResult *result) {
             columnWidths[i] = maxWidth;
         }
     }
-
     printLineColumn(columnWidths, result->columns);
     for (int col = 0; col < result->columns; col++) {
         printf("| %-*s ", columnWidths[col] - 2, result->data[col]);
     }
     printf("|\n");
     printLineColumn(columnWidths, result->columns);
-
     for (int row = 1; row <= result->rows; row++) {
         int moreLines = 1;
         int line = 0;

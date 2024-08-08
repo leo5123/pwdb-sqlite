@@ -15,5 +15,7 @@ void listTable(sqlite3 *db, char *table);
 void copyEntry(sqlite3 *db, char *table, char *name);
 void createDefaultTable(sqlite3 *db);
 void copyEntryFromDefault(sqlite3 *db, char *name);
+void deleteTable(sqlite3 *db, char *table);
+void deleteEntry(sqlite3 *db, char *table, char *name);
 
 #endif

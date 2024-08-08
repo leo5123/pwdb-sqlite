@@ -35,7 +35,8 @@ $ pwdb ls -g <group-name>
 // Send to your clipboard
 $ pwdb cp <group-name> <title>
 
-There is a way to make the "cp" command shorter; you can omit the table name if you use a table called "pwdb"
+There is a way to make the "cp" command shorter; 
+you can omit the table name if you use a table called "pwdb"
 ```
 
 ## Manual
@@ -49,6 +50,7 @@ Commands:
  add          Create a group or insert into a group
  ls           List information
  cp           Copy to your clipboard
+ rm           Delete information
 
 Global Options:     
  -g, --group         Storage space
