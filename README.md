@@ -1,18 +1,23 @@
- 
-## pwdb
+# pwdb
 
 Easy way to clip your password into your clipboard in linux.
 
-## Setup with apt
+## Install 
 
-```
+### Dependencies
+- libsqlite3
+
+### Adding `apt` repository
+
+```sh
 $ echo "deb [trusted=yes] https://leo5123.github.io/pwdb-sqlite/ ./" | sudo tee /etc/apt/sources.list.d/pwdb.list
 $ sudo apt update
 $ sudo apt install pwdb
 ```
 
-## (Alternative) Setup without apt
-```
+### With `deb`
+```sh
+$ git clone https://github.com/leo5123/pwdb-sqlite.git && cd pwdb-sqlite
 $ debclean
 $ debuild -us -uc
 $ dpkg -c ../pwdb_1.0-1_amd64.deb
@@ -20,9 +25,19 @@ $ cp ../pwdb_1.0-1_amd64.deb .
 $ dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
 ```
 
+## Building
+
+```sh
+$ git clone https://github.com/leo5123/pwdb-sqlite.git && cd pwdb-sqlite
+$ make
+# If you feel like installing, you can:
+$ sudo mv pwdb /usr/local/bin
+```
+
+
 ## Example use
 
-```
+```sh
 // Create a group
 $ pwdb add -g <group-name>
 
